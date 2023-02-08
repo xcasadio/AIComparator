@@ -5,8 +5,10 @@ namespace AIComparator;
 
 public class PlayerItem : ContentControl
 {
+    private readonly Player _player;
     public static readonly DependencyProperty XProperty = DependencyProperty.Register("X", typeof(int), typeof(PlayerItem));
     public static readonly DependencyProperty YProperty = DependencyProperty.Register("Y", typeof(int), typeof(PlayerItem));
+    public static readonly DependencyProperty TeamProperty = DependencyProperty.Register("Team", typeof(int), typeof(PlayerItem));
 
     public int X
     {
@@ -20,9 +22,22 @@ public class PlayerItem : ContentControl
         set => SetValue(YProperty, value);
     }
 
-    public PlayerItem()
+    public int Team
     {
-        Height = 30;
-        Width = 30;
+        get => (int)GetValue(TeamProperty);
+        set => SetValue(TeamProperty, value);
+    }
+
+    public PlayerItem(Player player)
+    {
+        _player = player;
+        Refresh();
+    }
+
+    public void Refresh()
+    {
+        X = _player.X;
+        Y = _player.Y;
+        Team = _player.Team;
     }
 }
